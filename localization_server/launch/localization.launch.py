@@ -1,3 +1,5 @@
+import os
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -17,6 +19,9 @@ def generate_launch_description():
     yaml_file_path = PathJoinSubstitution([
         get_package_share_directory('map_server'), 'config', map_file
     ])
+    
+    nav2_yaml = os.path.join(get_package_share_directory('localization_server'), 'config', 'amcl_config.yaml')
+
 
     return LaunchDescription([
         # Include the declaration of the launch argument
@@ -40,13 +45,22 @@ def generate_launch_description():
                        ]),
 
         Node(
+            package='nav2_amcl',
+            executable='amcl',
+            name='amcl',
+            output='screen',
+            parameters=[nav2_yaml]
+        ),
+
+        Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
-            name='lifecycle_manager_mapper',
+            name='lifecycle_manager_localization',
             output='screen',
             parameters=[{'use_sim_time': True},
                         {'autostart': True},
-                        {'node_names': ['map_server']}])         
+                        {'node_names': ['map_server', 'amcl']}]
+        )      
 
                
     ])
