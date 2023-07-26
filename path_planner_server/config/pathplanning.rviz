@@ -6,11 +6,14 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Map1/Status1
+        - /ParticleCloud1
         - /ParticleCloud1/Topic1
-        - /Map1/Topic1
-        - /TF1
-        - /TF1/Frames1
-        - /ParticleCloud2/Topic1
+        - /RobotModel1
+        - /RobotModel1/Description Topic1
+        - /Map3
+        - /Map3/Status1
+        - /Map3/Topic1
       Splitter Ratio: 0.5
     Tree Height: 553
   - Class: rviz_common/Selection
@@ -52,178 +55,47 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Alpha: 1
-      Class: nav2_rviz_plugins/ParticleCloud
-      Color: 255; 25; 0
-      Enabled: true
-      Max Arrow Length: 0.30000001192092896
-      Min Arrow Length: 0.019999999552965164
-      Name: ParticleCloud
-      Shape: Arrow (Flat)
-      Topic:
-        Depth: 5
-        Durability Policy: Transient Local
-        Filter size: 10
-        History Policy: Keep All
-        Reliability Policy: Best Effort
-        Value: /particle_cloud
-      Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: Map
       Topic:
         Depth: 5
-        Durability Policy: Transient Local
+        Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /map
+        Value: /global_costmap/costmap
       Update Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /map_updates
+        Value: /global_costmap/costmap_updates
       Use Timestamp: false
       Value: true
-    - Alpha: 1
-      Axes Length: 1
-      Axes Radius: 0.10000000149011612
-      Class: rviz_default_plugins/PoseWithCovariance
-      Color: 255; 25; 0
-      Covariance:
-        Orientation:
-          Alpha: 0.5
-          Color: 255; 255; 127
-          Color Style: Unique
-          Frame: Local
-          Offset: 1
-          Scale: 1
-          Value: true
-        Position:
-          Alpha: 0.30000001192092896
-          Color: 204; 51; 204
-          Scale: 1
-          Value: true
-        Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: costmap
+      Draw Behind: false
       Enabled: true
-      Head Length: 0.30000001192092896
-      Head Radius: 0.10000000149011612
-      Name: PoseWithCovariance
-      Shaft Length: 1
-      Shaft Radius: 0.05000000074505806
-      Shape: Arrow
+      Name: Map
       Topic:
         Depth: 5
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /amcl_pose
-      Value: true
-    - Class: rviz_default_plugins/TF
-      Enabled: true
-      Frame Timeout: 15
-      Frames:
-        All Enabled: false
-        map:
-          Value: true
-        robot_base_docking_contact_link:
-          Value: false
-        robot_base_footprint:
-          Value: true
-        robot_base_link:
-          Value: false
-        robot_front_cover_link:
-          Value: false
-        robot_front_laser_base_link:
-          Value: false
-        robot_front_laser_link:
-          Value: false
-        robot_front_rgbd_camera_depth_frame:
-          Value: false
-        robot_front_rgbd_camera_depth_optical_frame:
-          Value: false
-        robot_front_rgbd_camera_link:
-          Value: false
-        robot_front_rgbd_camera_rgb_base_link:
-          Value: false
-        robot_front_rgbd_camera_rgb_optical_frame:
-          Value: false
-        robot_imu_link:
-          Value: false
-        robot_left_wheel_link:
-          Value: false
-        robot_odom:
-          Value: true
-        robot_omni_backwheel_link:
-          Value: false
-        robot_omni_front_leftwheel_link:
-          Value: false
-        robot_omni_front_rightwheel_link:
-          Value: false
-        robot_right_wheel_link:
-          Value: false
-        robot_top_cover_link:
-          Value: false
-      Marker Scale: 1
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: false
-      Tree:
-        map:
-          robot_odom:
-            robot_base_footprint:
-              robot_base_link:
-                robot_front_cover_link:
-                  robot_base_docking_contact_link:
-                    {}
-                robot_front_laser_base_link:
-                  robot_front_laser_link:
-                    {}
-                robot_front_rgbd_camera_rgb_base_link:
-                  robot_front_rgbd_camera_depth_frame:
-                    robot_front_rgbd_camera_depth_optical_frame:
-                      {}
-                  robot_front_rgbd_camera_link:
-                    {}
-                  robot_front_rgbd_camera_rgb_optical_frame:
-                    {}
-                robot_imu_link:
-                  {}
-                robot_left_wheel_link:
-                  {}
-                robot_omni_backwheel_link:
-                  {}
-                robot_omni_front_leftwheel_link:
-                  {}
-                robot_omni_front_rightwheel_link:
-                  {}
-                robot_right_wheel_link:
-                  {}
-              robot_top_cover_link:
-                {}
-      Update Interval: 0
-      Value: true
-    - Alpha: 1
-      Class: nav2_rviz_plugins/ParticleCloud
-      Color: 0; 0; 255
-      Enabled: true
-      Max Arrow Length: 0.30000001192092896
-      Min Arrow Length: 0.019999999552965164
-      Name: ParticleCloud
-      Shape: Arrow (Flat)
-      Topic:
+        Value: /local_costmap/costmap
+      Update Topic:
         Depth: 5
         Durability Policy: Volatile
-        Filter size: 10
         History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /particle_cloud
+        Reliability Policy: Reliable
+        Value: /local_costmap/costmap_updates
+      Use Timestamp: false
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -258,6 +130,143 @@ Visualization Manager:
         Value: /scan
       Use Fixed Frame: true
       Use rainbow: true
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        map:
+          Value: true
+        robot_base_docking_contact_link:
+          Value: false
+        robot_base_footprint:
+          Value: true
+        robot_base_link:
+          Value: false
+        robot_front_cover_link:
+          Value: false
+        robot_front_laser_base_link:
+          Value: false
+        robot_front_laser_link:
+          Value: false
+        robot_front_rgbd_camera_depth_frame:
+          Value: false
+        robot_front_rgbd_camera_depth_optical_frame:
+          Value: false
+        robot_front_rgbd_camera_link:
+          Value: false
+        robot_front_rgbd_camera_rgb_base_link:
+          Value: false
+        robot_front_rgbd_camera_rgb_optical_frame:
+          Value: false
+        robot_imu_link:
+          Value: false
+        robot_odom:
+          Value: true
+        robot_omni_backwheel_link:
+          Value: false
+        robot_omni_front_leftwheel_link:
+          Value: false
+        robot_omni_front_rightwheel_link:
+          Value: false
+        robot_top_cover_link:
+          Value: false
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        map:
+          robot_odom:
+            robot_base_footprint:
+              robot_base_link:
+                robot_front_cover_link:
+                  robot_base_docking_contact_link:
+                    {}
+                robot_front_laser_base_link:
+                  robot_front_laser_link:
+                    {}
+                robot_front_rgbd_camera_rgb_base_link:
+                  robot_front_rgbd_camera_depth_frame:
+                    robot_front_rgbd_camera_depth_optical_frame:
+                      {}
+                  robot_front_rgbd_camera_link:
+                    {}
+                  robot_front_rgbd_camera_rgb_optical_frame:
+                    {}
+                robot_imu_link:
+                  {}
+                robot_omni_backwheel_link:
+                  {}
+                robot_omni_front_leftwheel_link:
+                  {}
+                robot_omni_front_rightwheel_link:
+                  {}
+              robot_top_cover_link:
+                {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Class: nav2_rviz_plugins/ParticleCloud
+      Color: 0; 0; 255
+      Enabled: true
+      Max Arrow Length: 0.30000001192092896
+      Min Arrow Length: 0.019999999552965164
+      Name: ParticleCloud
+      Shape: Arrow (Flat)
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /particle_cloud
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /robot_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: ""
+      Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_updates
+      Use Timestamp: false
       Value: true
   Enabled: true
   Global Options:
@@ -305,25 +314,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 10.545811653137207
+      Distance: 10
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.8692679405212402
-        Y: 0.23896944522857666
-        Z: 0.002814769744873047
+        X: -2.093229293823242
+        Y: 0.32055431604385376
+        Z: -4.80459902973962e-08
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9821679592132568
-      Target Frame: <Fixed Frame>
+      Pitch: 0.9197962284088135
+      Target Frame: robot_base_footprint
       Value: Orbit (rviz)
-      Yaw: 2.919499635696411
+      Yaw: 2.945396900177002
     Saved: ~
 Window Geometry:
   Displays:

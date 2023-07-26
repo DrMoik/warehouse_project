@@ -21,7 +21,7 @@ def generate_launch_description():
     ])
     
     nav2_yaml = os.path.join(get_package_share_directory('localization_server'), 'config', 'amcl_config.yaml')
-
+    rviz_config_file = os.path.join(get_package_share_directory('localization_server'), 'config', 'localizer_rviz_config.rviz')
 
     return LaunchDescription([
         # Include the declaration of the launch argument
@@ -31,7 +31,8 @@ def generate_launch_description():
             package='rviz2',
             executable='rviz2',
             name='rviz2',
-            output='screen'
+            output='screen',
+            arguments=['-d', rviz_config_file]
         ) ,
 
 
