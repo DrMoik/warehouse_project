@@ -63,14 +63,14 @@ def main():
         print('Task failed!')
         exit(-1)
 
-    # Add a second destination point
+    
     target_pose2 = PoseStamped()
     target_pose2.header.frame_id = 'map'
     target_pose2.header.stamp = navigator.get_clock().now().to_msg()
-    target_pose2.pose.position.x = 5.7
-    target_pose2.pose.position.y = 0.18
-    target_pose2.pose.orientation.z = -0.70710678118
-    target_pose2.pose.orientation.w = 0.70710678118
+    target_pose2.pose.position.x =5.7 #4.63281 #5.7
+    target_pose2.pose.position.y =0.18 #-0.25785 #0.18
+    target_pose2.pose.orientation.z =-0.707106#-0.6810636 #-0.70710678118
+    target_pose2.pose.orientation.w =0.707106 #0.7322242 #0.70710678118
     print('Moving to the loading_position...')
     navigator.goToPose(target_pose2)
 
@@ -81,7 +81,24 @@ def main():
     if result == TaskResult.SUCCEEDED:
         print('Reached the loading_position successfully!')
         approach_shelf_client.call_approach_shelf_service(final_approach=True)
-        reached_second_destination = True
+        
+    elif result == TaskResult.CANCELED:
+        print('Task was canceled. Returning to the staging point...')
+        navigator.goToPose(initial_pose)
+    elif result == TaskResult.FAILED:
+        print('Task failed!')
+        exit(-1)
+    
+    print('Moving to the loading_position...')
+    navigator.goToPose(target_pose2)
+
+    while not navigator.isTaskComplete():
+        pass
+
+    result = navigator.getResult()
+    if result == TaskResult.SUCCEEDED:
+        print('Reached the loading_position successfully!')
+        
     elif result == TaskResult.CANCELED:
         print('Task was canceled. Returning to the staging point...')
         navigator.goToPose(initial_pose)
@@ -89,29 +106,28 @@ def main():
         print('Task failed!')
         exit(-1)
 
-    if reached_second_destination:
-        target_pose3 = PoseStamped()
-        target_pose3.header.frame_id = 'map'
-        target_pose3.header.stamp = navigator.get_clock().now().to_msg()
-        target_pose3.pose.position.x = 0.25
-        target_pose3.pose.position.y = -3.0
-        target_pose3.pose.orientation.z = 0.70710678118
-        target_pose3.pose.orientation.w = 0.70710678118
-        print('Moving to shipping_position...')
-        navigator.goToPose(target_pose3)
+    target_pose3 = PoseStamped()
+    target_pose3.header.frame_id = 'map'
+    target_pose3.header.stamp = navigator.get_clock().now().to_msg()
+    target_pose3.pose.position.x = 0.25
+    target_pose3.pose.position.y = -3.0
+    target_pose3.pose.orientation.z = 0.70710678118
+    target_pose3.pose.orientation.w = 0.70710678118
+    print('Moving to shipping_position...')
+    navigator.goToPose(target_pose3)
 
-        while not navigator.isTaskComplete():
-            pass
+    while not navigator.isTaskComplete():
+        pass
 
-        result = navigator.getResult()
-        if result == TaskResult.SUCCEEDED:
-            print('Reached shipping_position successfully!')
-        elif result == TaskResult.CANCELED:
-            print('Task was canceled. Returning to the staging point...')
-            navigator.goToPose(initial_pose)
-        elif result == TaskResult.FAILED:
-            print('Task failed!')
-            exit(-1)
+    result = navigator.getResult()
+    if result == TaskResult.SUCCEEDED:
+        print('Reached shipping_position successfully!')
+    elif result == TaskResult.CANCELED:
+        print('Task was canceled. Returning to the staging point...')
+        navigator.goToPose(initial_pose)
+    elif result == TaskResult.FAILED:
+        print('Task failed!')
+        exit(-1)
     exit(0)
 
 if __name__ == '__main__':

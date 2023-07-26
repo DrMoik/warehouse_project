@@ -23,6 +23,9 @@ def generate_launch_description():
     nav2_yaml = os.path.join(get_package_share_directory('localization_server'), 'config', 'amcl_config.yaml')
     rviz_config_file = os.path.join(get_package_share_directory('localization_server'), 'config', 'localizer_rviz_config.rviz')
 
+     # Check if the map_file_arg is equal to the default value 'warehouse_map_sim.yaml'
+    is_default_map = map_file == 'warehouse_map_sim.yaml'
+
     return LaunchDescription([
         # Include the declaration of the launch argument
         map_file_arg,
@@ -41,7 +44,7 @@ def generate_launch_description():
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': is_default_map}, 
                         {'yaml_filename':yaml_file_path} 
                        ]),
 
@@ -58,7 +61,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_localization',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': is_default_map},
                         {'autostart': True},
                         {'node_names': ['map_server', 'amcl']}]
         )      

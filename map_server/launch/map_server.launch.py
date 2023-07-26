@@ -22,11 +22,13 @@ def generate_launch_description():
 
     rviz_config_file = os.path.join(get_package_share_directory('map_server'), 'config', 'map_rviz_config.rviz')
 
+    # Check if the map_file_arg is equal to the default value 'warehouse_map_sim.yaml'
+    is_default_map = map_file == 'warehouse_map_sim.yaml'
 
     return LaunchDescription([
         # Include the declaration of the launch argument
         map_file_arg,
-        
+
         Node(
             package='rviz2',
             executable='rviz2',
@@ -35,13 +37,12 @@ def generate_launch_description():
             arguments=['-d', rviz_config_file]
         ) ,
 
-
         Node(
             package='nav2_map_server',
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': is_default_map},  # Set use_sim_time to False if map_file_arg is different from the default value
                         {'yaml_filename':yaml_file_path} 
                        ]),
 
@@ -50,7 +51,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_mapper',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': is_default_map},  # Set use_sim_time to False if map_file_arg is different from the default value
                         {'autostart': True},
                         {'node_names': ['map_server']}])         
 
